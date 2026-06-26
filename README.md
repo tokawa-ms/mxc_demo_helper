@@ -169,6 +169,10 @@ npm start
 
 起動後、ブラウザで `http://127.0.0.1:3000` を開きます。既定では `C:\mxc-demo\mxc` にある `wxc-exec.exe` と、このリポジトリの `mxc-profiles` を使います。別の場所に MXC を置いた場合は、画面上部の `RepoPath` を変更してください。
 
+実行時イメージ:
+
+![Network block demo runtime image](img/deny-image.png)
+
 ブラウザデモコンソールでは次の操作ができます。
 
 | 操作            | 説明                                                                         |

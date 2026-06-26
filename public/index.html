@@ -12,7 +12,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Localhost control plane</p>
         <h1 id="page-title">MXC Policy Demo Console</h1>
-        <p class="intro">PowerShell の MXC デモをブラウザからステップ実行し、ネットワークとファイルシステムの境界をログ付きで確認します。</p>
+        <p class="intro">PowerShell の MXC デモを、ポリシー境界・アクセス経路・実行結果が見えるグラフィカルな操作盤として表示します。</p>
       </div>
       <div class="hero-actions">
         <button id="refreshStatus" class="button button-secondary" type="button">Status</button>
@@ -54,45 +54,85 @@
       </article>
     </section>
 
-    <section class="visualizer" aria-label="Policy visualization">
-      <div class="zone zone-host">
-        <span class="zone-title">Host VM</span>
-        <span class="zone-node">PowerShell</span>
-      </div>
-      <div class="boundary">
-        <span>MXC policy boundary</span>
-      </div>
-      <div class="zone zone-mxc">
-        <span class="zone-title">MXC</span>
-        <span class="zone-node">wxc-exec.exe</span>
-      </div>
-      <div class="zone zone-targets">
-        <span class="zone-title">Targets</span>
-        <span class="zone-node">Network :80</span>
-        <span class="zone-node">Filesystem paths</span>
-      </div>
-    </section>
-
-    <section class="workspace">
-      <div class="demo-panel">
+    <section class="demo-stage" aria-label="Graphical demo stage">
+      <aside class="step-rail" aria-labelledby="steps-title">
         <div class="section-heading">
-          <p class="eyebrow">Demo steps</p>
-          <h2>Run one step at a time</h2>
+          <p class="eyebrow">Demo sequence</p>
+          <h2 id="steps-title">Policy scenarios</h2>
         </div>
-        <div id="demoGrid" class="demo-grid" aria-live="polite"></div>
-      </div>
-
-      <aside class="log-panel" aria-labelledby="log-title">
-        <div class="log-toolbar">
-          <div>
-            <p class="eyebrow">Live output</p>
-            <h2 id="log-title">Execution log</h2>
-          </div>
-          <button id="clearLog" class="button button-ghost" type="button">Clear</button>
-        </div>
-        <pre id="logOutput" class="log-output" aria-live="polite"></pre>
+        <div id="demoGrid" class="step-list" aria-live="polite"></div>
       </aside>
+
+      <section class="policy-board" id="policyBoard" aria-labelledby="board-title">
+        <div class="board-header">
+          <div>
+            <p class="eyebrow">Current scenario</p>
+            <h2 id="board-title">Select a demo step</h2>
+            <p id="boardSubtitle" class="board-subtitle">Status check runs automatically when the page opens.</p>
+          </div>
+          <div class="result-orb" id="resultOrb" aria-live="polite">
+            <span id="resultLabel">idle</span>
+          </div>
+        </div>
+
+        <div class="stage-map" id="stageMap">
+          <div class="stage-zone host-zone" data-zone="host">
+            <span class="zone-kicker">Host VM</span>
+            <strong>PowerShell</strong>
+            <span class="zone-detail">normal process</span>
+          </div>
+
+          <div class="stage-link" aria-hidden="true">
+            <span class="packet packet-one"></span>
+            <span class="packet packet-two"></span>
+            <span class="packet packet-three"></span>
+          </div>
+
+          <div class="stage-zone mxc-zone" data-zone="mxc">
+            <span class="zone-kicker">MXC runtime</span>
+            <strong>wxc-exec.exe</strong>
+            <span class="zone-detail" id="policyName">policy pending</span>
+          </div>
+
+          <div class="policy-gate" id="policyGate" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="stage-zone target-zone" data-zone="target">
+            <span class="zone-kicker">Target surface</span>
+            <strong id="targetName">Network / Filesystem</strong>
+            <span class="zone-detail" id="targetDetail">awaiting scenario</span>
+            <div class="file-access-list" id="fileAccessList" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="telemetry-grid" aria-label="Visual execution telemetry">
+          <article class="meter-card">
+            <span class="meter-label">Access posture</span>
+            <div class="access-meter" id="accessMeter"><span></span></div>
+            <strong id="accessLabel">not evaluated</strong>
+          </article>
+          <article class="signal-card">
+            <span class="meter-label">Execution signal</span>
+            <div id="signalFeed" class="signal-feed" aria-live="polite"></div>
+          </article>
+          <article class="mini-card">
+            <span class="meter-label">Last exit</span>
+            <strong id="exitCode">-</strong>
+          </article>
+        </div>
+      </section>
     </section>
+
+    <details class="log-drawer">
+      <summary>
+        <span>Execution log</span>
+        <button id="clearLog" class="button button-ghost" type="button">Clear</button>
+      </summary>
+      <pre id="logOutput" class="log-output" aria-live="polite"></pre>
+    </details>
   </main>
   <script src="/app.js"></script>
 </body>
