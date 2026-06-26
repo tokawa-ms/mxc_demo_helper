@@ -1,16 +1,31 @@
 # MXC Windows Build & Policy Demo Scripts
 
+<p align="left">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20x64-0078D4?style=for-the-badge&logo=windows&logoColor=white">
+  <img alt="PowerShell" src="https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-5391FE?style=for-the-badge&logo=powershell&logoColor=white">
+  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
+  <img alt="Rust" src="https://img.shields.io/badge/Rust-1.93-000000?style=for-the-badge&logo=rust&logoColor=white">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-A31F34?style=for-the-badge">
+</p>
+
+<p>
+  <a href="#クイックスタート"><img alt="Quick Start" src="https://img.shields.io/badge/Quick%20Start-Build%20%26%20Run-2563EB?style=flat-square"></a>
+  <a href="#mxc-をビルドする"><img alt="Build" src="https://img.shields.io/badge/Build-MXC-0F766E?style=flat-square"></a>
+  <a href="#ポリシーデモを実行する"><img alt="Demo" src="https://img.shields.io/badge/Demo-Policy%20Profiles-7C3AED?style=flat-square"></a>
+  <a href="#トラブルシューティング"><img alt="Troubleshooting" src="https://img.shields.io/badge/Troubleshooting-Guide-D97706?style=flat-square"></a>
+</p>
+
 Windows 環境で [Microsoft MXC](https://github.com/microsoft/mxc) をできるだけシンプルにビルドし、MXC の基本的なポリシー動作を確認するための補助スクリプト集です。
 
 英語版は [README-en.md](README-en.md) を参照してください。
 
 ## このリポジトリに含まれるもの
 
-| パス | 役割 |
-| --- | --- |
-| `build_mxc_windows.ps1` | MXC リポジトリを clone し、Windows x64 向けに `wxc-exec.exe` をビルドします。 |
-| `run_mxc_demo.ps1` | ビルド済みの `wxc-exec.exe` とサンプルプロファイルを使い、ネットワークとファイルシステムのポリシー動作をデモします。 |
-| `mxc-profiles\*.json` | デモ用の MXC プロファイルです。ネットワーク許可・遮断、ファイル読み書き・読み取り専用を扱います。 |
+| パス                    | 役割                                                                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `build_mxc_windows.ps1` | MXC リポジトリを clone し、Windows x64 向けに `wxc-exec.exe` をビルドします。                                        |
+| `run_mxc_demo.ps1`      | ビルド済みの `wxc-exec.exe` とサンプルプロファイルを使い、ネットワークとファイルシステムのポリシー動作をデモします。 |
+| `mxc-profiles\*.json`   | デモ用の MXC プロファイルです。ネットワーク許可・遮断、ファイル読み書き・読み取り専用を扱います。                    |
 
 このリポジトリ自体には MXC のソースコードは含まれていません。既定では `build_mxc_windows.ps1` が `https://github.com/microsoft/mxc.git` を `C:\mxc-demo\mxc` に shallow clone します。
 
@@ -34,12 +49,12 @@ Windows 環境で [Microsoft MXC](https://github.com/microsoft/mxc) をできる
 
 `build_mxc_windows.ps1` は以下を確認または利用します。
 
-| ツール | 要件 | 補足 |
-| --- | --- | --- |
-| Git for Windows | `git` が PATH から実行できること | MXC リポジトリを clone するために必要です。 |
-| Node.js | 18 以上 | `node` と `npm` が PATH から実行できる必要があります。 |
-| Visual Studio / Build Tools | C++ x64 tools を含むこと | `vcvars64.bat` を自動検出します。検出できない場合は `-VcVarsPath` で指定します。 |
-| Rust / Rustup | 既定ではスクリプトが隔離ディレクトリに Rust `1.93` を導入 | `-SkipRustInstall` を使う場合は `rustc` と `cargo` を PATH に用意してください。 |
+| ツール                      | 要件                                                      | 補足                                                                             |
+| --------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Git for Windows             | `git` が PATH から実行できること                          | MXC リポジトリを clone するために必要です。                                      |
+| Node.js                     | 18 以上                                                   | `node` と `npm` が PATH から実行できる必要があります。                           |
+| Visual Studio / Build Tools | C++ x64 tools を含むこと                                  | `vcvars64.bat` を自動検出します。検出できない場合は `-VcVarsPath` で指定します。 |
+| Rust / Rustup               | 既定ではスクリプトが隔離ディレクトリに Rust `1.93` を導入 | `-SkipRustInstall` を使う場合は `rustc` と `cargo` を PATH に用意してください。  |
 
 Visual Studio は、Visual Studio 2022 または Build Tools for Visual Studio 2022 で、少なくとも次のコンポーネントを入れておくことを推奨します。
 
@@ -87,19 +102,19 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 よく使うオプションは次のとおりです。
 
-| オプション | 既定値 | 説明 |
-| --- | --- | --- |
-| `-Workspace` | `C:\mxc-demo` | MXC clone、Rust、npm cache を置く作業ディレクトリです。 |
-| `-RepoUrl` | `https://github.com/microsoft/mxc.git` | clone する MXC リポジトリです。 |
-| `-RepoDirectoryName` | `mxc` | `-Workspace` 配下に作る MXC ディレクトリ名です。 |
-| `-RustToolchain` | `1.93` | 導入または確認する Rust toolchain です。 |
-| `-Configuration` | `release` | `release` または `debug` を指定します。 |
-| `-Platform` | `x64` | 現在は `x64` のみです。 |
-| `-VcVarsPath` | 自動検出 | `vcvars64.bat` を明示指定します。 |
-| `-ForceClone` | 無効 | 既存の MXC clone を削除して clone し直します。 |
-| `-SkipRustInstall` | 無効 | Rust の導入をスキップし、PATH 上の `rustc` / `cargo` を使います。 |
-| `-SkipBuild` | 無効 | clone や前提確認だけ行い、MXC ビルドをスキップします。 |
-| `-RunProbe` | 無効 | ビルド後に `wxc-exec.exe --probe` を実行します。 |
+| オプション           | 既定値                                 | 説明                                                              |
+| -------------------- | -------------------------------------- | ----------------------------------------------------------------- |
+| `-Workspace`         | `C:\mxc-demo`                          | MXC clone、Rust、npm cache を置く作業ディレクトリです。           |
+| `-RepoUrl`           | `https://github.com/microsoft/mxc.git` | clone する MXC リポジトリです。                                   |
+| `-RepoDirectoryName` | `mxc`                                  | `-Workspace` 配下に作る MXC ディレクトリ名です。                  |
+| `-RustToolchain`     | `1.93`                                 | 導入または確認する Rust toolchain です。                          |
+| `-Configuration`     | `release`                              | `release` または `debug` を指定します。                           |
+| `-Platform`          | `x64`                                  | 現在は `x64` のみです。                                           |
+| `-VcVarsPath`        | 自動検出                               | `vcvars64.bat` を明示指定します。                                 |
+| `-ForceClone`        | 無効                                   | 既存の MXC clone を削除して clone し直します。                    |
+| `-SkipRustInstall`   | 無効                                   | Rust の導入をスキップし、PATH 上の `rustc` / `cargo` を使います。 |
+| `-SkipBuild`         | 無効                                   | clone や前提確認だけ行い、MXC ビルドをスキップします。            |
+| `-RunProbe`          | 無効                                   | ビルド後に `wxc-exec.exe --probe` を実行します。                  |
 
 例:
 
@@ -120,23 +135,23 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 デモは以下を確認します。
 
-| デモ | プロファイル | 確認すること |
-| --- | --- | --- |
-| Baseline network check | なし | MXC の外側で VM から `www.msftconnecttest.com:80` に接続できること。 |
-| Network open profile | `mxc-profiles\network-open-microsoft.json` | `internetClient` capability により、MXC 内の `curl.exe` が HTTP HEAD を取得できること。 |
-| Network block profile | `mxc-profiles\network-block-microsoft.json` | `network.defaultPolicy=block` と `enforcementMode=firewall` により、MXC 内からの外部接続が失敗すること。 |
-| Filesystem read/write profile | `mxc-profiles\filesystem-readwrite-allowed.json` | `C:\mxc-demo-fs\allowed` 配下の読み取りと書き込みが成功すること。 |
-| Filesystem readonly profile | `mxc-profiles\filesystem-readonly-deny-write.json` | `C:\mxc-demo-fs\readonly` は読めるが書き込めないこと。 |
+| デモ                          | プロファイル                                       | 確認すること                                                                                             |
+| ----------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Baseline network check        | なし                                               | MXC の外側で VM から `www.msftconnecttest.com:80` に接続できること。                                     |
+| Network open profile          | `mxc-profiles\network-open-microsoft.json`         | `internetClient` capability により、MXC 内の `curl.exe` が HTTP HEAD を取得できること。                  |
+| Network block profile         | `mxc-profiles\network-block-microsoft.json`        | `network.defaultPolicy=block` と `enforcementMode=firewall` により、MXC 内からの外部接続が失敗すること。 |
+| Filesystem read/write profile | `mxc-profiles\filesystem-readwrite-allowed.json`   | `C:\mxc-demo-fs\allowed` 配下の読み取りと書き込みが成功すること。                                        |
+| Filesystem readonly profile   | `mxc-profiles\filesystem-readonly-deny-write.json` | `C:\mxc-demo-fs\readonly` は読めるが書き込めないこと。                                                   |
 
 よく使うオプションは次のとおりです。
 
-| オプション | 既定値 | 説明 |
-| --- | --- | --- |
-| `-RepoPath` | `C:\mxc-demo\mxc` | ビルド済み MXC リポジトリのパスです。 |
-| `-ConfigDirectory` | `.\mxc-profiles` | デモ用 JSON プロファイルのディレクトリです。 |
-| `-VcVarsPath` | 自動検出 | `vcvars64.bat` を明示指定します。 |
-| `-SkipNetworkBlock` | 無効 | Firewall を使うネットワーク遮断デモをスキップします。 |
-| `-SkipFilesystemDemo` | 無効 | ファイルシステムポリシーデモをスキップします。 |
+| オプション            | 既定値            | 説明                                                  |
+| --------------------- | ----------------- | ----------------------------------------------------- |
+| `-RepoPath`           | `C:\mxc-demo\mxc` | ビルド済み MXC リポジトリのパスです。                 |
+| `-ConfigDirectory`    | `.\mxc-profiles`  | デモ用 JSON プロファイルのディレクトリです。          |
+| `-VcVarsPath`         | 自動検出          | `vcvars64.bat` を明示指定します。                     |
+| `-SkipNetworkBlock`   | 無効              | Firewall を使うネットワーク遮断デモをスキップします。 |
+| `-SkipFilesystemDemo` | 無効              | ファイルシステムポリシーデモをスキップします。        |
 
 管理者権限が使えない環境では、まずネットワーク遮断デモをスキップして動作確認できます。
 
@@ -188,4 +203,3 @@ MXC の外側で `www.msftconnecttest.com:80` に接続できていません。V
 ## ライセンス
 
 このリポジトリのスクリプトとドキュメントは MIT License です。詳細は [LICENSE](LICENSE) を参照してください。
-

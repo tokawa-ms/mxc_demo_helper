@@ -1,16 +1,31 @@
 # MXC Windows Build & Policy Demo Scripts
 
+<p align="left">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%20x64-0078D4?style=for-the-badge&logo=windows&logoColor=white">
+  <img alt="PowerShell" src="https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-5391FE?style=for-the-badge&logo=powershell&logoColor=white">
+  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
+  <img alt="Rust" src="https://img.shields.io/badge/Rust-1.93-000000?style=for-the-badge&logo=rust&logoColor=white">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-A31F34?style=for-the-badge">
+</p>
+
+<p>
+  <a href="#quick-start"><img alt="Quick Start" src="https://img.shields.io/badge/Quick%20Start-Build%20%26%20Run-2563EB?style=flat-square"></a>
+  <a href="#build-mxc"><img alt="Build" src="https://img.shields.io/badge/Build-MXC-0F766E?style=flat-square"></a>
+  <a href="#run-the-policy-demo"><img alt="Demo" src="https://img.shields.io/badge/Demo-Policy%20Profiles-7C3AED?style=flat-square"></a>
+  <a href="#troubleshooting"><img alt="Troubleshooting" src="https://img.shields.io/badge/Troubleshooting-Guide-D97706?style=flat-square"></a>
+</p>
+
 This repository contains helper scripts for building [Microsoft MXC](https://github.com/microsoft/mxc) on Windows and demonstrating basic MXC policy behavior.
 
 The primary documentation is Japanese. See [README.md](README.md).
 
 ## Contents
 
-| Path | Purpose |
-| --- | --- |
-| `build_mxc_windows.ps1` | Clones the MXC repository and builds `wxc-exec.exe` for Windows x64. |
-| `run_mxc_demo.ps1` | Runs policy demos with a built `wxc-exec.exe` and the sample profiles. |
-| `mxc-profiles\*.json` | Demo MXC profiles for network allow/block and filesystem read-write/read-only behavior. |
+| Path                    | Purpose                                                                                 |
+| ----------------------- | --------------------------------------------------------------------------------------- |
+| `build_mxc_windows.ps1` | Clones the MXC repository and builds `wxc-exec.exe` for Windows x64.                    |
+| `run_mxc_demo.ps1`      | Runs policy demos with a built `wxc-exec.exe` and the sample profiles.                  |
+| `mxc-profiles\*.json`   | Demo MXC profiles for network allow/block and filesystem read-write/read-only behavior. |
 
 This repository does not include the MXC source code. By default, `build_mxc_windows.ps1` shallow-clones `https://github.com/microsoft/mxc.git` into `C:\mxc-demo\mxc`.
 
@@ -34,12 +49,12 @@ This repository does not include the MXC source code. By default, `build_mxc_win
 
 `build_mxc_windows.ps1` checks or uses the following tools.
 
-| Tool | Requirement | Notes |
-| --- | --- | --- |
-| Git for Windows | `git` must be available on PATH | Required to clone MXC. |
-| Node.js | 18 or later | `node` and `npm` must be available on PATH. |
-| Visual Studio / Build Tools | C++ x64 tools | The script auto-detects `vcvars64.bat`; use `-VcVarsPath` if auto-detection fails. |
-| Rust / Rustup | By default, the script installs Rust `1.93` into an isolated workspace | If you use `-SkipRustInstall`, provide `rustc` and `cargo` on PATH. |
+| Tool                        | Requirement                                                            | Notes                                                                              |
+| --------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Git for Windows             | `git` must be available on PATH                                        | Required to clone MXC.                                                             |
+| Node.js                     | 18 or later                                                            | `node` and `npm` must be available on PATH.                                        |
+| Visual Studio / Build Tools | C++ x64 tools                                                          | The script auto-detects `vcvars64.bat`; use `-VcVarsPath` if auto-detection fails. |
+| Rust / Rustup               | By default, the script installs Rust `1.93` into an isolated workspace | If you use `-SkipRustInstall`, provide `rustc` and `cargo` on PATH.                |
 
 For Visual Studio 2022 or Build Tools for Visual Studio 2022, the following components are recommended:
 
@@ -87,19 +102,19 @@ For the common case, run:
 
 Common options:
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `-Workspace` | `C:\mxc-demo` | Workspace for the MXC clone, Rust, and npm cache. |
-| `-RepoUrl` | `https://github.com/microsoft/mxc.git` | MXC repository URL to clone. |
-| `-RepoDirectoryName` | `mxc` | Directory name created under `-Workspace`. |
-| `-RustToolchain` | `1.93` | Rust toolchain to install or verify. |
-| `-Configuration` | `release` | `release` or `debug`. |
-| `-Platform` | `x64` | Currently only `x64` is supported. |
-| `-VcVarsPath` | auto-detected | Explicit path to `vcvars64.bat`. |
-| `-ForceClone` | disabled | Deletes the existing MXC clone and clones again. |
-| `-SkipRustInstall` | disabled | Skips Rust installation and uses `rustc` / `cargo` from PATH. |
-| `-SkipBuild` | disabled | Performs clone and prerequisite checks but skips the MXC build. |
-| `-RunProbe` | disabled | Runs `wxc-exec.exe --probe` after the build. |
+| Option               | Default                                | Description                                                     |
+| -------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| `-Workspace`         | `C:\mxc-demo`                          | Workspace for the MXC clone, Rust, and npm cache.               |
+| `-RepoUrl`           | `https://github.com/microsoft/mxc.git` | MXC repository URL to clone.                                    |
+| `-RepoDirectoryName` | `mxc`                                  | Directory name created under `-Workspace`.                      |
+| `-RustToolchain`     | `1.93`                                 | Rust toolchain to install or verify.                            |
+| `-Configuration`     | `release`                              | `release` or `debug`.                                           |
+| `-Platform`          | `x64`                                  | Currently only `x64` is supported.                              |
+| `-VcVarsPath`        | auto-detected                          | Explicit path to `vcvars64.bat`.                                |
+| `-ForceClone`        | disabled                               | Deletes the existing MXC clone and clones again.                |
+| `-SkipRustInstall`   | disabled                               | Skips Rust installation and uses `rustc` / `cargo` from PATH.   |
+| `-SkipBuild`         | disabled                               | Performs clone and prerequisite checks but skips the MXC build. |
+| `-RunProbe`          | disabled                               | Runs `wxc-exec.exe --probe` after the build.                    |
 
 Example:
 
@@ -120,23 +135,23 @@ After the build completes, run:
 
 The demo verifies:
 
-| Demo | Profile | What it verifies |
-| --- | --- | --- |
-| Baseline network check | none | The VM can reach `www.msftconnecttest.com:80` outside MXC. |
-| Network open profile | `mxc-profiles\network-open-microsoft.json` | With the `internetClient` capability, `curl.exe` inside MXC can perform an HTTP HEAD request. |
-| Network block profile | `mxc-profiles\network-block-microsoft.json` | With `network.defaultPolicy=block` and `enforcementMode=firewall`, outbound access from inside MXC fails. |
-| Filesystem read/write profile | `mxc-profiles\filesystem-readwrite-allowed.json` | Reading and writing under `C:\mxc-demo-fs\allowed` succeeds. |
-| Filesystem readonly profile | `mxc-profiles\filesystem-readonly-deny-write.json` | `C:\mxc-demo-fs\readonly` is readable but not writable. |
+| Demo                          | Profile                                            | What it verifies                                                                                          |
+| ----------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Baseline network check        | none                                               | The VM can reach `www.msftconnecttest.com:80` outside MXC.                                                |
+| Network open profile          | `mxc-profiles\network-open-microsoft.json`         | With the `internetClient` capability, `curl.exe` inside MXC can perform an HTTP HEAD request.             |
+| Network block profile         | `mxc-profiles\network-block-microsoft.json`        | With `network.defaultPolicy=block` and `enforcementMode=firewall`, outbound access from inside MXC fails. |
+| Filesystem read/write profile | `mxc-profiles\filesystem-readwrite-allowed.json`   | Reading and writing under `C:\mxc-demo-fs\allowed` succeeds.                                              |
+| Filesystem readonly profile   | `mxc-profiles\filesystem-readonly-deny-write.json` | `C:\mxc-demo-fs\readonly` is readable but not writable.                                                   |
 
 Common options:
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `-RepoPath` | `C:\mxc-demo\mxc` | Path to the built MXC repository. |
-| `-ConfigDirectory` | `.\mxc-profiles` | Directory containing demo JSON profiles. |
-| `-VcVarsPath` | auto-detected | Explicit path to `vcvars64.bat`. |
-| `-SkipNetworkBlock` | disabled | Skips the firewall-based network block demo. |
-| `-SkipFilesystemDemo` | disabled | Skips filesystem policy demos. |
+| Option                | Default           | Description                                  |
+| --------------------- | ----------------- | -------------------------------------------- |
+| `-RepoPath`           | `C:\mxc-demo\mxc` | Path to the built MXC repository.            |
+| `-ConfigDirectory`    | `.\mxc-profiles`  | Directory containing demo JSON profiles.     |
+| `-VcVarsPath`         | auto-detected     | Explicit path to `vcvars64.bat`.             |
+| `-SkipNetworkBlock`   | disabled          | Skips the firewall-based network block demo. |
+| `-SkipFilesystemDemo` | disabled          | Skips filesystem policy demos.               |
 
 If you cannot run an elevated PowerShell, start by skipping the network block demo:
 
@@ -188,4 +203,3 @@ The VM cannot reach `www.msftconnecttest.com:80` outside MXC. Check the VM netwo
 ## License
 
 The scripts and documentation in this repository are licensed under the MIT License. See [LICENSE](LICENSE).
-
