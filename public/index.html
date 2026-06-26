@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MXC Policy Demo Console</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-panel" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Localhost control plane</p>
+        <h1 id="page-title">MXC Policy Demo Console</h1>
+        <p class="intro">PowerShell の MXC デモをブラウザからステップ実行し、ネットワークとファイルシステムの境界をログ付きで確認します。</p>
+      </div>
+      <div class="hero-actions">
+        <button id="refreshStatus" class="button button-secondary" type="button">Status</button>
+        <button id="runSafeFlow" class="button button-primary" type="button">Run safe flow</button>
+      </div>
+    </section>
+
+    <section class="control-grid" aria-label="Runner options">
+      <label class="field">
+        <span>RepoPath</span>
+        <input id="repoPath" type="text" value="C:\mxc-demo\mxc" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>ConfigDirectory</span>
+        <input id="configDirectory" type="text" value="" autocomplete="off">
+      </label>
+      <label class="field field-wide">
+        <span>VcVarsPath</span>
+        <input id="vcVarsPath" type="text" value="" placeholder="auto detect" autocomplete="off">
+      </label>
+    </section>
+
+    <section class="status-strip" aria-label="Environment status">
+      <article class="status-card" id="statusWxc">
+        <span class="status-label">wxc-exec</span>
+        <strong>unknown</strong>
+      </article>
+      <article class="status-card" id="statusVcvars">
+        <span class="status-label">vcvars64</span>
+        <strong>unknown</strong>
+      </article>
+      <article class="status-card" id="statusAdmin">
+        <span class="status-label">administrator</span>
+        <strong>unknown</strong>
+      </article>
+      <article class="status-card" id="statusProfiles">
+        <span class="status-label">profiles</span>
+        <strong>unknown</strong>
+      </article>
+    </section>
+
+    <section class="visualizer" aria-label="Policy visualization">
+      <div class="zone zone-host">
+        <span class="zone-title">Host VM</span>
+        <span class="zone-node">PowerShell</span>
+      </div>
+      <div class="boundary">
+        <span>MXC policy boundary</span>
+      </div>
+      <div class="zone zone-mxc">
+        <span class="zone-title">MXC</span>
+        <span class="zone-node">wxc-exec.exe</span>
+      </div>
+      <div class="zone zone-targets">
+        <span class="zone-title">Targets</span>
+        <span class="zone-node">Network :80</span>
+        <span class="zone-node">Filesystem paths</span>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="demo-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Demo steps</p>
+          <h2>Run one step at a time</h2>
+        </div>
+        <div id="demoGrid" class="demo-grid" aria-live="polite"></div>
+      </div>
+
+      <aside class="log-panel" aria-labelledby="log-title">
+        <div class="log-toolbar">
+          <div>
+            <p class="eyebrow">Live output</p>
+            <h2 id="log-title">Execution log</h2>
+          </div>
+          <button id="clearLog" class="button button-ghost" type="button">Clear</button>
+        </div>
+        <pre id="logOutput" class="log-output" aria-live="polite"></pre>
+      </aside>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -159,6 +159,26 @@ If you cannot run an elevated PowerShell, start by skipping the network block de
 .\run_mxc_demo.ps1 -SkipNetworkBlock
 ```
 
+## Use the browser demo console
+
+You can run the same MXC profiles used by `run_mxc_demo.ps1` from a localhost HTML/CSS/JavaScript UI. The console keeps the CLI log visible while showing the network allow/block and filesystem read-write/read-only behavior as demo cards and status indicators.
+
+```powershell
+npm start
+```
+
+After the server starts, open `http://127.0.0.1:3000` in your browser. By default, the console uses `wxc-exec.exe` under `C:\mxc-demo\mxc` and the `mxc-profiles` directory from this repository. If MXC is in another location, change `RepoPath` at the top of the page.
+
+The browser demo console supports:
+
+| Action          | Description                                                                            |
+| --------------- | -------------------------------------------------------------------------------------- |
+| `Status`        | Checks `wxc-exec.exe`, `vcvars64.bat`, administrator state, and profile files.         |
+| `Run safe flow` | Runs the safe demo sequence, excluding the administrator-sensitive network block step. |
+| `Run step`      | Runs one demo step and streams PowerShell / MXC output in real time.                   |
+
+The network block demo uses Windows Firewall enforcement, so starting the Node server from an elevated PowerShell is recommended.
+
 ## Troubleshooting
 
 ### `vcvars64.bat` is not found

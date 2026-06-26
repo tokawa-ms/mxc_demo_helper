@@ -159,6 +159,26 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\run_mxc_demo.ps1 -SkipNetworkBlock
 ```
 
+## ブラウザデモコンソールを使う
+
+`run_mxc_demo.ps1` と同じ MXC プロファイルを、ローカルホストの HTML/CSS/JavaScript UI からステップ実行できます。CLI のログを見せながら、ネットワーク許可・遮断、ファイル読み書き・読み取り専用の違いをデモカードとステータス表示で確認できます。
+
+```powershell
+npm start
+```
+
+起動後、ブラウザで `http://127.0.0.1:3000` を開きます。既定では `C:\mxc-demo\mxc` にある `wxc-exec.exe` と、このリポジトリの `mxc-profiles` を使います。別の場所に MXC を置いた場合は、画面上部の `RepoPath` を変更してください。
+
+ブラウザデモコンソールでは次の操作ができます。
+
+| 操作            | 説明                                                                         |
+| --------------- | ---------------------------------------------------------------------------- |
+| `Status`        | `wxc-exec.exe`、`vcvars64.bat`、管理者権限、プロファイルの存在を確認します。 |
+| `Run safe flow` | 管理者権限が必要な network block を除き、安全な順番でデモを実行します。      |
+| `Run step`      | 各デモを 1 つずつ実行し、PowerShell / MXC の出力をリアルタイム表示します。   |
+
+network block デモは Windows Firewall enforcement を使うため、Node サーバーを管理者 PowerShell から起動することを推奨します。
+
 ## トラブルシューティング
 
 ### `vcvars64.bat` が見つからない
