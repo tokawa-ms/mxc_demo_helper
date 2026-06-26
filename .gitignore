@@ -1,0 +1,48 @@
+# Windows / PowerShell
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Editors
+.vscode/
+.idea/
+*.code-workspace
+
+# PowerShell generated files
+*.ps1xml
+*.psd1.tmp
+*.psm1.tmp
+*.transcript
+
+# Local test and build artifacts
+out/
+bin/
+obj/
+build/
+dist/
+coverage/
+TestResults/
+
+# Dependency caches
+node_modules/
+.npm-cache/
+.cargo/
+.cargo-home/
+.rustup/
+
+# Local MXC workspaces accidentally created inside this repository
+mxc/
+mxc-demo/
+mxc-demo-fs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+

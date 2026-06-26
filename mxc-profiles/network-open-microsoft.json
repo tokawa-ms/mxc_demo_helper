@@ -1,0 +1,14 @@
+{
+  "version": "0.4.0-alpha",
+  "containerId": "MXC-Network-Open-Microsoft",
+  "containment": "processcontainer",
+  "process": {
+    "commandLine": "C:\\Windows\\System32\\curl.exe --head --location --connect-timeout 10 --max-time 15 --write-out \"\\n[MXC] RESULT: network access succeeded as expected. HTTP %{http_code}\\n\" http://www.msftconnecttest.com/connecttest.txt",
+    "timeout": 15000
+  },
+  "processContainer": {
+    "capabilities": [
+      "internetClient"
+    ]
+  }
+}

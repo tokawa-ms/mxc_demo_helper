@@ -1,0 +1,17 @@
+{
+  "version": "0.6.0-alpha",
+  "containerId": "MXC-FS-Readonly-Deny-Write",
+  "containment": "processcontainer",
+  "process": {
+    "commandLine": "C:\\Windows\\System32\\cmd.exe /v:on /d /c \"echo [MXC] Policy expectation: allowed is read/write; readonly is read-only. & echo [MXC] Attempt READ: C:\\mxc-demo-fs\\allowed\\input.txt & set /p ALLOWED=<C:\\mxc-demo-fs\\allowed\\input.txt & echo [MXC] READ RESULT allowed: !ALLOWED! & echo [MXC] Attempt READ: C:\\mxc-demo-fs\\readonly\\input.txt & set /p READONLY=<C:\\mxc-demo-fs\\readonly\\input.txt & echo [MXC] READ RESULT readonly: !READONLY! & echo [MXC] Attempt WRITE: C:\\mxc-demo-fs\\readonly\\write-should-fail.txt & >C:\\mxc-demo-fs\\readonly\\write-should-fail.txt echo this should not be written && (echo [MXC] WRITE RESULT: UNEXPECTED readonly write succeeded. & exit /b 2) || (echo [MXC] WRITE RESULT: readonly write was blocked as expected. & exit /b 0)\"",
+    "timeout": 15000
+  },
+  "filesystem": {
+    "readwritePaths": [
+      "C:\\mxc-demo-fs\\allowed"
+    ],
+    "readonlyPaths": [
+      "C:\\mxc-demo-fs\\readonly"
+    ]
+  }
+}

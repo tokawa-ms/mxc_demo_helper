@@ -1,0 +1,18 @@
+{
+  "version": "0.4.0-alpha",
+  "containerId": "MXC-Network-Blocked-Microsoft",
+  "containment": "processcontainer",
+  "process": {
+    "commandLine": "C:\\Windows\\System32\\cmd.exe /d /c \"echo [MXC] Policy expectation: network.defaultPolicy=block with firewall enforcement. & echo [MXC] Attempt: HTTP HEAD http://www.msftconnecttest.com/connecttest.txt via curl.exe. & C:\\Windows\\System32\\curl.exe --head --location --connect-timeout 10 --max-time 15 http://www.msftconnecttest.com/connecttest.txt >nul 2>nul && (echo [MXC] RESULT: UNEXPECTED network access succeeded. & exit /b 2) || (echo [MXC] RESULT: network access was blocked as expected. & exit /b 0)\"",
+    "timeout": 15000
+  },
+  "processContainer": {
+    "capabilities": [
+      "internetClient"
+    ]
+  },
+  "network": {
+    "defaultPolicy": "block",
+    "enforcementMode": "firewall"
+  }
+}

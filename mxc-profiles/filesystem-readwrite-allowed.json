@@ -1,0 +1,14 @@
+{
+  "version": "0.6.0-alpha",
+  "containerId": "MXC-FS-ReadWrite-Allowed",
+  "containment": "processcontainer",
+  "process": {
+    "commandLine": "C:\\Windows\\System32\\cmd.exe /v:on /d /c \"echo [MXC] Policy expectation: C:\\mxc-demo-fs\\allowed is read/write. & echo [MXC] Attempt READ: C:\\mxc-demo-fs\\allowed\\input.txt & set /p INPUT=<C:\\mxc-demo-fs\\allowed\\input.txt & echo [MXC] READ RESULT: !INPUT! & echo [MXC] Attempt WRITE: C:\\mxc-demo-fs\\allowed\\output-from-mxc.txt & >C:\\mxc-demo-fs\\allowed\\output-from-mxc.txt echo written by MXC & echo [MXC] WRITE RESULT: output-from-mxc.txt created successfully.\"",
+    "timeout": 15000
+  },
+  "filesystem": {
+    "readwritePaths": [
+      "C:\\mxc-demo-fs\\allowed"
+    ]
+  }
+}
